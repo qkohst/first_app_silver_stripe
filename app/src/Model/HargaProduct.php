@@ -2,10 +2,13 @@
 
 use SilverStripe\ORM\DataObject;
 
-class WarnaProduct extends DataObject
+class HargaProduct extends DataObject
 {
+    private static $db = [
+        'Harga' => 'Double'
+    ];
+
     private static $has_one = [
-        'Warna' => Warna::class,
         'Product' => Product::class,
     ];
 }
