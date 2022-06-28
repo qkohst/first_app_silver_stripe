@@ -8,7 +8,6 @@ class ProductController extends PageController
     public function index(HTTPRequest $request)
     {
         $product = Product::get();
-        // print_r ($product);
         $data = [
             "siteParent" => "Product",
             "mgeJS" => "product",
@@ -17,6 +16,18 @@ class ProductController extends PageController
 
         return $this->customise($data)->renderWith((array(
             'Product', 'Page',
+        )));
+    }
+
+    public function TambahProduct(HTTPRequest $request)
+    {
+        $data = [
+            "siteParent" => "Tambah Product",
+            "mgeJS" => "product",
+        ];
+
+        return $this->customise($data)->renderWith((array(
+            'TambahProduct', 'Page',
         )));
     }
 }

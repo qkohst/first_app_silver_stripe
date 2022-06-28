@@ -1,45 +1,19 @@
 <head>
-	<!-- Meta Tag -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name='copyright' content=''>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Title Tag  -->
-    <title>Eshop - eCommerce HTML5 Template.</title>
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="images/favicon.png">
-	<!-- Web Font -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-	
-	<!-- StyleSheet -->
-	
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="$ThemeDir/assets/css/bootstrap.css">
-	<!-- Magnific Popup -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/magnific-popup.min.css">
-	<!-- Font Awesome -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/font-awesome.css">
-	<!-- Fancybox -->
-	<link rel="stylesheet" href="$ThemeDir/assets/css/jquery.fancybox.min.css">
-	<!-- Themify Icons -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/themify-icons.css">
-	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/niceselect.css">
-	<!-- Animate CSS -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/animate.css">
-	<!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/flex-slider.min.css">
-	<!-- Owl Carousel -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/owl-carousel.css">
-	<!-- Slicknav -->
-    <link rel="stylesheet" href="$ThemeDir/assets/css/slicknav.min.css">
-	
-	<!-- Eshop StyleSheet -->
-	<link rel="stylesheet" href="$ThemeDir/assets/css/reset.css">
-	<link rel="stylesheet" href="$ThemeDir/assets/css/style.css">
-    <link rel="stylesheet" href="$ThemeDir/assets/css/responsive.css">
-
-	
-	
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="$ThemeDir/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="$ThemeDir/assets/img/favicon.png">
+  <title>
+    Argon Dashboard 2 by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="$ThemeDir/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 </head>

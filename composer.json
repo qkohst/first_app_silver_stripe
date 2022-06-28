@@ -30,8 +30,9 @@
         "expose": [
             "themes/custom/assets/css",
             "themes/custom/assets/fonts",
-            "themes/custom/assets/images",
-            "themes/custom/assets/js"
+            "themes/custom/assets/img",
+            "themes/custom/assets/js",
+            "themes/custom/assets/scss"
         ]
     },
     "config": {
