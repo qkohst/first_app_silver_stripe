@@ -9,6 +9,6 @@ class HargaProduct extends DataObject
     ];
 
     private static $has_one = [
-        'Product' => Product::class,
+        'WarnaProduct' => WarnaProduct::class,
     ];
 }

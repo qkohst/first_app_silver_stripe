@@ -26,6 +26,12 @@
             ".htaccess",
             "index.php",
             "web.config"
+        ],
+        "expose": [
+            "themes/custom/assets/css",
+            "themes/custom/assets/fonts",
+            "themes/custom/assets/images",
+            "themes/custom/assets/js"
         ]
     },
     "config": {

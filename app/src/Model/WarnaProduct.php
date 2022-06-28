@@ -8,4 +8,9 @@ class WarnaProduct extends DataObject
         'Warna' => Warna::class,
         'Product' => Product::class,
     ];
+
+    private static $has_many = [
+        'HargaProduct' => HargaProduct::class,
+        'JumlahProduct' => JumlahProduct::class,
+    ];
 }

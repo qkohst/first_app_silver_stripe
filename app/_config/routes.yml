@@ -6,4 +6,4 @@ After:
 ---
 SilverStripe\Control\Director:
   rules:
-    "siswa/": SiswaController
+    "product//$Action/$ID": ProductController
