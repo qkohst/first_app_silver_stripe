@@ -18,15 +18,22 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+         <li class="nav-item">
+          <a class="nav-link " href="{$BaseHref}Warna">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-palette text-warning text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Warna</span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link " href="{$BaseHref}Product">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+              <i class="ni ni-basket text-info text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Product</span>
           </a>
         </li>
-
       </ul>
     </div>
     <div class="sidenav-footer mx-3 ">

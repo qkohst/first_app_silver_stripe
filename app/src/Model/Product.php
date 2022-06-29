@@ -6,6 +6,7 @@ class Product extends DataObject
 {
     private static $db = [
         'NamaProduct' => 'Varchar(100)',
+        'Status' => 'Boolean'
     ];
 
     private static $has_many = [

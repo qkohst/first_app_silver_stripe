@@ -4,7 +4,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="$ThemeDir/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="$ThemeDir/assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    MGE Training
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -16,4 +16,6 @@
   <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
+  <!-- Select2 -->
+<link rel="stylesheet" href="$ThemeDir/assets/plugins/select2/css/select2.css">
 </head>

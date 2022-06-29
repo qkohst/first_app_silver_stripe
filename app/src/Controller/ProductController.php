@@ -10,7 +10,7 @@ class ProductController extends PageController
         $product = Product::get();
         $data = [
             "siteParent" => "Product",
-            "mgeJS" => "product",
+            "site" => "Product",
             'Data' => $product
         ];
 
@@ -23,7 +23,7 @@ class ProductController extends PageController
     {
         $data = [
             "siteParent" => "Tambah Product",
-            "mgeJS" => "product",
+            "site" => "Product",
         ];
 
         return $this->customise($data)->renderWith((array(
