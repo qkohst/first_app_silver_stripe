@@ -19,13 +19,8 @@
                                 <label for="example-text-input" class="form-control-label">Status</label>
                                 <select class="form-select" aria-label="Default select example" name="Status" required>
                                     <option>-- Pilih Status --</option>
-                                    <% if $Data.Status == 1 %>
-                                    <option value="1" selected>Aktif</option>
-                                    <option value="0">Non Aktif</option>
-                                    <% else %>
-                                    <option value="1">Aktif</option>
-                                    <option value="0"selected>Non Aktif</option>
-                                    <% end_if %>
+                                    <option value="1" <% if $Data.Status == 1 %> selected <% end_if %> >Aktif</option>
+                                    <option value="0" <% if $Data.Status == 0 %> selected <% end_if %> >Non Aktif</option>                                
                                 </select>
                             </div>
                         </div>

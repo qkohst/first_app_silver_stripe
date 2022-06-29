@@ -7,7 +7,7 @@
                       <h6 class="mb-0">Data $siteParent</h6>
                     </div>
                    <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah $siteParent</a>
+                        <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
                     </div>
 
                     <!-- Modal Tambah-->
@@ -50,7 +50,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                        
+                            <% if $CountData == 0 %>
 
+                                <tr>
+                                    <td class="align-middle text-center" colspan="3">
+                                        <p class="text-xs font-weight-bold mb-0"">Data tidak ditemukan</p>
+                                    </td>
+                                </tr>
+
+                            <% else %>
+                           
                             <% loop $Data %>
                                 <tr>
                                     <td class="align-middle px-4">
@@ -71,6 +81,8 @@
                                     </td>
                                 </tr>
                             <% end_loop %>
+
+                            <% end_if %>
                         </tbody>
                     </table>
                 </div>

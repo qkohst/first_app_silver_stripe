@@ -14,11 +14,21 @@ class WarnaController extends PageController
 
     public function index(HTTPRequest $request)
     {
-        $warna = Warna::get()->where('Deleted = 0');
+        if (isset($_REQUEST['search'])) {
+            $search = $_REQUEST['search'];
+            $filter = 'NamaWarna' . ' LIKE \'%' . $_REQUEST['search'] . '%\'';
+            $warna = Warna::get()->where('Deleted = 0 AND ' . $filter);
+        } else {
+            $search;
+            $warna = Warna::get()->where('Deleted = 0');
+        }
+
         $data = [
             "siteParent" => "Warna",
             "site" => "Warna",
-            'Data' => $warna
+            "search" => $search,
+            "Data" => $warna,
+            "CountData" => count($warna)
         ];
 
         return $this->customise($data)->renderWith((array(
