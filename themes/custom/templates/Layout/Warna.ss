@@ -1,8 +1,18 @@
 <div class="row">
     <div class="col-md-12 mb-lg-0 mb-4">
-              <div class="card mt-4">
-                <div class="card-header pb-0 p-3">
-                  <div class="row">
+        <% if $Status == "success" %>
+        <div class="alert alert-success alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% else_if $Status == "error" %>
+        <div class="alert alert-danger alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% end_if %>
+
+        <div class="card">
+            <div class="card-header pb-0 p-3">
+                <div class="row">
                     <div class="col-6 d-flex align-items-center">
                       <h6 class="mb-0">Data $siteParent</h6>
                     </div>
@@ -29,17 +39,17 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-danger mb-0" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-success mb-0">Simpan</button>
                             </div>
                             </form>
                         </div>
                     </div>
                     </div>
 
-                  </div>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
                   <div class="table-responsive p-0">
                     <table class="table align-items-center mb-0">
                         <thead>
@@ -85,7 +95,7 @@
                             <% end_if %>
                         </tbody>
                     </table>
-                </div>
-              </div>
+            </div>
+        </div>
     </div>
 </div>

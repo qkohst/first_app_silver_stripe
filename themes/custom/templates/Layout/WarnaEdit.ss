@@ -1,5 +1,15 @@
 <div class="row">
     <div class="col-md-12 mb-lg-0 mb-4">
+     <% if $Status == "success" %>
+        <div class="alert alert-success alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% else_if $Status == "error" %>
+        <div class="alert alert-danger alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% end_if %>
+        
       <div class="card">
             <div class="card-header pb-0">
                 <h6 class="text-uppercase">{$siteParent}</h6>
@@ -29,8 +39,8 @@
                 </div>
 
                 <div class="card-footer pt-0 pb-2">
-                    <a href="#" class="btn bg-gradient-primary btn-sm ms-auto btn-save">Simpan</a>
-                    <a href="{$BaseHref}Warna" class="btn btn-outline-primary btn-sm ms-auto">Batal</a>
+                    <a href="#" class="btn bg-gradient-success btn-sm ms-auto btn-save">Simpan</a>
+                    <a href="{$BaseHref}Warna" class="btn btn-outline-danger btn-sm ms-auto">Batal</a>
                 </div>
             </form>
         </div>

@@ -8,7 +8,7 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="$ThemeDir/assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 
-  <!-- Sweet Alert -->
+<!-- Sweet Alert -->
 <script src="$ThemeDir/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
 <!-- jQuery -->
 <script src="$ThemeDir/assets/plugins/jquery/jquery.min.js"></script>
@@ -86,4 +86,13 @@
     jQuery(document).ready(function() {
         SweetAlert2Demo.init();
     });
+
+    
+</script>
+<script>
+    window.setTimeout(function() {
+        $(".alert-message").fadeTo(200, 0).slideUp(200, function(){
+            $(this).remove(); 
+        });
+    }, 2000);    
 </script>
