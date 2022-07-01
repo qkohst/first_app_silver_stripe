@@ -5,15 +5,37 @@
   <script src="$ThemeDir/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="$ThemeDir/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="$ThemeDir/assets/js/plugins/chartjs.min.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="$ThemeDir/assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 
 <!-- Sweet Alert -->
 <script src="$ThemeDir/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
 <!-- jQuery -->
-<script src="$ThemeDir/assets/plugins/jquery/jquery.min.js"></script>
+<script src="$ThemeDir/assets/js/plugins/jquery/jquery.min.js"></script>
+<script src="$ThemeDir/assets/js/jquery.mask.min.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Format mata uang.
+        $( '.uang' ).mask('000.000.000.000.000', {reverse: true});
+    })
+</script>
 <script>
+    <%-- Enable Disable Form Input Ketika Warna Product Dipilih --%>
+    $( ".checkbox-harga" ).on( "click", function(e) {
+        id = e.target.dataset.id;
+        
+        if($(this).is(':checked')){
+            document.getElementById(`HargaProduct${id}`).disabled = false;
+            document.getElementById(`JumlahProduct${id}`).disabled = false;
+        } else {
+            document.getElementById(`HargaProduct${id}`).disabled = true;
+            document.getElementById(`HargaProduct${id}`).value = '';
+            document.getElementById(`JumlahProduct${id}`).disabled = true;
+            document.getElementById(`JumlahProduct${id}`).value = '';
+        }
+    });
+
+    <%-- Sweet Alert --%>
     $(function() {
         //Initialize Select2 Elements
         $('.select2').select2()
@@ -87,12 +109,11 @@
         SweetAlert2Demo.init();
     });
 
-    
-</script>
-<script>
+    <%-- Timmer Notifikasi --%>
     window.setTimeout(function() {
         $(".alert-message").fadeTo(200, 0).slideUp(200, function(){
             $(this).remove(); 
         });
-    }, 2000);    
+    }, 2000); 
+    
 </script>

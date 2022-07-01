@@ -17,5 +17,6 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
   <!-- Select2 -->
-<link rel="stylesheet" href="$ThemeDir/assets/plugins/select2/css/select2.css">
+  <link rel="stylesheet" href="$ThemeDir/assets/plugins/select2/css/select2.css">
+
 </head>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 mb-lg-0 mb-4">
-     <% if $Status == "success" %>
+        <% if $Status == "success" %>
         <div class="alert alert-success alert-message fade show" role="alert">
         <strong>$msg</strong>
         </div>

@@ -18,21 +18,21 @@ class WarnaController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if (@$_SESSION['savedata_status'] == "error") {
+            if ($_SESSION['savedata_status'] == "error") {
                 $status = "error";
-                $msg = @$_SESSION['msg'];
-            } elseif (@$_SESSION['savedata_status'] == "success") {
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['savedata_status'] == "success") {
                 $status = "success";
-                $msg = @$_SESSION['msg'];
+                $msg = $_SESSION['msg'];
             }
             unset($_SESSION['savedata_status']);
         } elseif (isset($_SESSION['deletedata_status'])) {
-            if (@$_SESSION['deletedata_status'] == "error") {
+            if ($_SESSION['deletedata_status'] == "error") {
                 $status = "error";
-                $msg = @$_SESSION['msg'];
-            } elseif (@$_SESSION['deletedata_status'] == "success") {
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['deletedata_status'] == "success") {
                 $status = "success";
-                $msg = @$_SESSION['msg'];
+                $msg = $_SESSION['msg'];
             }
             unset($_SESSION['deletedata_status']);
         }
@@ -40,18 +40,18 @@ class WarnaController extends PageController
         if (isset($_REQUEST['search'])) {
             $search = Convert::raw2sql($_REQUEST['search']);
             $filter = 'NamaWarna' . ' LIKE \'%' . $search . '%\'';
-            $warna = Warna::get()->where('Deleted = 0 AND ' . $filter)->sort('NamaWarna');
+            $dataWarna = Warna::get()->where('Deleted = 0 AND ' . $filter)->sort('NamaWarna');
         } else {
             $search = null;
-            $warna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
+            $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
         }
 
         $data = [
             "siteParent" => "Warna",
             "site" => "Warna",
             "search" => $search,
-            "Data" => $warna,
-            "CountData" => count($warna),
+            "Data" => $dataWarna,
+            "CountData" => count($dataWarna),
             "Status" => $status,
             "msg" => $msg
         ];
@@ -64,8 +64,8 @@ class WarnaController extends PageController
     public function doSave(HTTPRequest $request)
     {
         if (trim($_REQUEST['NamaWarna']) == null) {
-            @$_SESSION['savedata_status'] = "error";
-            @$_SESSION['msg'] = "Nama Warna tidak boleh kosong";
+            $_SESSION['savedata_status'] = "error";
+            $_SESSION['msg'] = "Nama Warna tidak boleh kosong";
             return $this->redirectBack();
         } else {
             // unique validation 
@@ -78,12 +78,12 @@ class WarnaController extends PageController
                 $warna->Status = 1;
                 $warna->write();
 
-                @$_SESSION['savedata_status'] = "success";
-                @$_SESSION['msg'] = "Berhasil disimpan";
+                $_SESSION['savedata_status'] = "success";
+                $_SESSION['msg'] = "Berhasil disimpan";
                 return $this->redirect(Director::absoluteBaseURL() . "Warna");
             } else {
-                @$_SESSION['savedata_status'] = "error";
-                @$_SESSION['msg'] = "Nama Warna sudah ada";
+                $_SESSION['savedata_status'] = "error";
+                $_SESSION['msg'] = "Nama Warna sudah ada";
                 return $this->redirectBack();
             }
         }
@@ -94,12 +94,12 @@ class WarnaController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if (@$_SESSION['savedata_status'] == "error") {
+            if ($_SESSION['savedata_status'] == "error") {
                 $status = "error";
-                $msg = @$_SESSION['msg'];
-            } elseif (@$_SESSION['savedata_status'] == "success") {
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['savedata_status'] == "success") {
                 $status = "success";
-                $msg = @$_SESSION['msg'];
+                $msg = $_SESSION['msg'];
             }
             unset($_SESSION['savedata_status']);
         }
@@ -122,8 +122,8 @@ class WarnaController extends PageController
     public function doUpdate(HTTPRequest $request)
     {
         if (trim($_REQUEST['NamaWarna']) == null) {
-            @$_SESSION['savedata_status'] = "error";
-            @$_SESSION['msg'] = "Nama Warna tidak boleh kosong";
+            $_SESSION['savedata_status'] = "error";
+            $_SESSION['msg'] = "Nama Warna tidak boleh kosong";
             return $this->redirectBack();
         } else {
             $id = $request->params()["ID"];
@@ -141,12 +141,13 @@ class WarnaController extends PageController
                 ]);
                 $warna->write();
 
-                @$_SESSION['savedata_status'] = "success";
-                @$_SESSION['msg'] = "Berhasil diedit";
+                $_SESSION['savedata_status'] = "success";
+                $_SESSION['msg'] = "Berhasil diedit";
+
                 return $this->redirect(Director::absoluteBaseURL() . "Warna");
             } else {
-                @$_SESSION['savedata_status'] = "error";
-                @$_SESSION['msg'] = "Nama Warna sudah ada";
+                $_SESSION['savedata_status'] = "error";
+                $_SESSION['msg'] = "Nama Warna sudah ada";
                 return $this->redirectBack();
             }
         }
@@ -162,8 +163,8 @@ class WarnaController extends PageController
         ]);
         $warna->write();
 
-        @$_SESSION['deletedata_status'] = "success";
-        @$_SESSION['msg'] = "Berhasil dihapus";
+        $_SESSION['deletedata_status'] = "success";
+        $_SESSION['msg'] = "Berhasil dihapus";
         return $this->redirect(Director::absoluteBaseURL() . "Warna");
     }
 }
