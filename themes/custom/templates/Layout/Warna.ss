@@ -17,7 +17,7 @@
                       <h6 class="mb-0">Data $siteParent</h6>
                     </div>
                    <div class="col-6 text-end">
-                        <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+                        <a class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modalTambah"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
                     </div>
 
                     <!-- Modal Tambah-->
@@ -54,9 +54,9 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Warna</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                            <th class="text-secondary opacity-7"></th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" width="75%">Warna</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" width="20%">Status</th>
+                            <th class="text-secondary opacity-7" width="5%"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,11 +83,22 @@
                                         <span class="badge badge-sm bg-gradient-danger">Non Aktif</span>
                                         <% end_if %>
                                     </td>
-                                    <td class="align-middle ms-auto text-center">
-                                        <a class="btn btn-link text-warning px-2 mb-0" href="{$BaseHref}Warna/edit/{$ID}">Edit</a>
-                                        <a href="#" class="btn btn-link text-danger px-2 mb-0 btn-delete" title="Hapus" data-id="{$ID}">Hapus</a>
-                                        <form action="{$BaseHref}Warna/doDelete/{$ID}" method="post" id="delete{$ID}">
-                                        </form>
+                                    <td class="align-middle">
+                                        <a href="javascript:;" class="btn btn-link text-secondary mb-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="icofont-options"></i>
+                                        </a>
+                                        <ul class="dropdown-menu  dropdown-menu-end  px-2 pt-3 pb-0" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <a class="dropdown-item border-radius-md" href="{$BaseHref}Warna/edit/{$ID}">
+                                                    <i class="icofont-ui-edit mx-2"></i> Edit
+                                                </a>
+                                                <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="{$ID}">
+                                                    <i class="icofont-ui-delete mx-2"></i> Hapus
+                                                </a>
+                                                <form action="{$BaseHref}Warna/doDelete/{$ID}" method="post" id="delete{$ID}">
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             <% end_loop %>

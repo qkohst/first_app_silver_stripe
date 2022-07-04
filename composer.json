@@ -28,10 +28,13 @@
             "web.config"
         ],
         "expose": [
+            "public/assets/GambarProduct",
             "themes/custom/assets/css",
             "themes/custom/assets/fonts",
+            "themes/custom/assets/icofont",
             "themes/custom/assets/img",
             "themes/custom/assets/js",
+            "themes/custom/assets/plugins",
             "themes/custom/assets/scss"
         ]
     },

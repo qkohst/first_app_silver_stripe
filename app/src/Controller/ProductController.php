@@ -13,6 +13,7 @@ class ProductController extends PageController
     private static $allowed_actions = [
         'addData',
         'doSave',
+        'detail',
         'edit',
         'doUpdate',
         'doDelete'
@@ -52,10 +53,9 @@ class ProductController extends PageController
         } else {
             $search = null;
             $dataProduct = Product::get()->where('Deleted = 0');
-            foreach ($dataProduct as $product) {
-                $product->gambar = Gambar::get()->where('ProductID = ' . $product->ID)->first();
-            }
         }
+
+
 
         $data = [
             "siteParent" => "Product",
@@ -193,6 +193,104 @@ class ProductController extends PageController
 
         $_SESSION['savedata_status'] = "success";
         $_SESSION['msg'] = "Berhasil disimpan";
+        return $this->redirect(Director::absoluteBaseURL() . "Product");
+    }
+
+    public function detail(HTTPRequest $request)
+    {
+        $id = $request->params()["ID"];
+        $product = Product::get()->byID($id);
+
+        // $listGambar = [];
+        // $no = 1;
+
+        // foreach ($product->Gambar() as $gambar) {
+
+        //     array_push($listGambar, [
+        //         "No" => $no,
+        //         "Gambar" => $gambar->getAbsoluteURL()
+        //     ]);
+
+        //     $no++;
+        // }
+
+
+        $data = [
+            "siteParent" => "Detail Product",
+            "site" => "Product",
+            "Data" => $product,
+        ];
+
+        return $this->customise($data)->renderWith((array(
+            'ProductDetail', 'Page',
+        )));
+    }
+
+    public function edit(HTTPRequest $request)
+    {
+        $status = "";
+        $msg = "";
+        if (isset($_SESSION['savedata_status'])) {
+            if ($_SESSION['savedata_status'] == "error") {
+                $status = "error";
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['savedata_status'] == "success") {
+                $status = "success";
+                $msg = $_SESSION['msg'];
+            }
+            unset($_SESSION['savedata_status']);
+        }
+
+        $id = $request->params()["ID"];
+        $product = Product::get()->byID($id);
+        $data = [
+            "siteParent" => "Edit Product",
+            "site" => "Product",
+            "Data" => $product,
+            "Status" => $status,
+            "msg" => $msg
+        ];
+
+        return $this->customise($data)->renderWith((array(
+            'ProductEdit', 'Page',
+        )));
+    }
+
+    public function doUpdate(HTTPRequest $request)
+    {
+        if (trim($_REQUEST['DeskripsiProduct']) == null) {
+            $_SESSION['savedata_status'] = "error";
+            $_SESSION['msg'] = "Deskripsi product tidak boleh kosong";
+            return $this->redirectBack();
+        } else {
+            $id = $request->params()["ID"];
+            $product = Product::get()->byID($id);
+
+            $product->update([
+                'DeskripsiProduct' => Convert::raw2sql($_REQUEST['DeskripsiProduct']),
+                'Status' => Convert::raw2sql($_REQUEST['Status'])
+            ]);
+            $product->write();
+
+            $_SESSION['savedata_status'] = "success";
+            $_SESSION['msg'] = "Berhasil diedit";
+
+            return $this->redirect(Director::absoluteBaseURL() . "Product");
+        }
+    }
+
+    public function doDelete(HTTPRequest $request)
+    {
+        $id = $request->params()["ID"];
+        $product = Product::get()->byID($id);
+
+        $product->update([
+            'Deleted' => 1
+        ]);
+        $product->write();
+
+        $_SESSION['deletedata_status'] = "success";
+        $_SESSION['msg'] = "Berhasil dihapus";
         return $this->redirect(Director::absoluteBaseURL() . "Product");
     }
 }

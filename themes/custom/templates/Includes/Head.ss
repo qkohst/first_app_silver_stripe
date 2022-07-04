@@ -11,8 +11,9 @@
   <!-- Nucleo Icons -->
   <link href="$ThemeDir/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- icofont Icons -->
+  <link href="$ThemeDir/assets/icofont/icofont.min.css" rel="stylesheet">
   <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />

@@ -16,7 +16,7 @@
                       <h6 class="mb-0">Data $siteParent </h6>
                     </div>
                     <div class="col-6 text-end">
-                      <a class="btn bg-gradient-primary mb-0" href="{$BaseHref}Product/addData"><i class="fas fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+                      <a class="btn bg-gradient-primary mb-0" href="{$BaseHref}Product/addData"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
                     </div>
                   </div>
                 </div>
@@ -47,10 +47,9 @@
                         <td>
                           <div class="d-flex px-2 py-1">
                             <div>
-                              <img src="$ThemeDir/assets/GambarProduct/{$gambar.AbsoluteURL()}" class="avatar avatar-sm me-3" alt="user6">
+                              <img src="{$BaseHref}/public/assets/GambarProduct/{$Gambar.last.NamaGambar}" class="avatar avatar-sm me-2" alt="Img">
                             </div>
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm">{$gambar.fileName}</h6>
                               <h6 class="mb-0 text-sm">{$NamaProduct}</h6>
                             </div>
                           </div>
@@ -63,11 +62,24 @@
                           <% end_if %>
                         </td>
                         <td class="align-middle">
-                          <a class="btn btn-link text-primary px-2 mb-0" href="{$BaseHref}Product/detail/{$ID}">Detail</a>
-                          <a class="btn btn-link text-warning px-2 mb-0" href="{$BaseHref}Product/edit/{$ID}">Edit</a>
-                          <a href="#" class="btn btn-link text-danger px-2 mb-0 btn-delete" title="Hapus" data-id="{$ID}">Hapus</a>
-                          <form action="{$BaseHref}Product/doDelete/{$ID}" method="post" id="delete{$ID}">
-                          </form>
+                            <a href="javascript:;" class="btn btn-link text-secondary mb-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="icofont-options"></i>
+                            </a>
+                            <ul class="dropdown-menu  dropdown-menu-end  px-2 pt-3 pb-0" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a class="dropdown-item border-radius-md" href="{$BaseHref}Product/detail/{$ID}">
+                                        <i class="icofont-eye-alt mx-2"></i> Detail
+                                    </a>
+                                    <a class="dropdown-item border-radius-md" href="{$BaseHref}Product/edit/{$ID}">
+                                        <i class="icofont-ui-edit mx-2"></i> Edit
+                                    </a>
+                                    <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="{$ID}">
+                                        <i class="icofont-ui-delete mx-2"></i> Hapus
+                                    </a>
+                                    <form action="{$BaseHref}Product/doDelete/{$ID}" method="post" id="delete{$ID}">
+                                    </form>
+                                </li>
+                            </ul>
                         </td>
                       </tr>
                     

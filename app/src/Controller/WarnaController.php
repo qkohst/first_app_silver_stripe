@@ -160,6 +160,7 @@ class WarnaController extends PageController
 
         $warna->update([
             'Deleted' => 1
+            
         ]);
         $warna->write();
 
