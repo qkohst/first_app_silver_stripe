@@ -1,4 +1,15 @@
  <div class="row mt-4">
+    <div class="col-12">
+        <% if $Status == "success" %>
+        <div class="alert alert-success alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% else_if $Status == "error" %>
+        <div class="alert alert-danger alert-message fade show" role="alert">
+        <strong>$msg</strong>
+        </div>
+        <% end_if %>
+    </div>
     <div class="col-lg-5">
       <div class="card card-carousel overflow-hidden h-100 p-0">
         <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
@@ -20,7 +31,11 @@
     <div class="col-lg-7 mb-lg-0 mb-4">
       <div class="card z-index-2 h-100">
         <div class="card-header pb-0 pt-3 bg-transparent">
-            <h6 class="text-capitalize">Pilihan Warna</h6>
+            <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                    <h6 class="mb-0">Pilihan Warna </h6>
+                </div>
+            </div>
         </div>
         <div class="card-body pt-0">
             <div class="table-responsive p-0">
@@ -55,14 +70,14 @@
                                     </a>
                                     <ul class="dropdown-menu  dropdown-menu-end  px-2 pt-3 pb-0" aria-labelledby="dropdownMenuButton">
                                         <li>
-                                            <a class="dropdown-item border-radius-md" href="{$BaseHref}Product/edit/{$ID}">
-                                                <i class="icofont-ui-edit mx-2"></i> Edit
+                                            <a class="dropdown-item border-radius-md" href="{$BaseHref}Product/editStokHarga/{$ID}">
+                                                <i class="icofont-ui-edit mx-2"></i> Edit Stok & Harga
                                             </a>
-                                            <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="{$ID}">
+                                            <%-- <a href="#" class="dropdown-item border-radius-md btn-delete" data-id="{$ID}">
                                                 <i class="icofont-ui-delete mx-2"></i> Hapus
                                             </a>
                                             <form action="{$BaseHref}Product/doDelete/{$ID}" method="post" id="delete{$ID}">
-                                            </form>
+                                            </form> --%>
                                         </li>
                                     </ul>
                                 </td>
@@ -92,7 +107,7 @@
                 <hr class="horizontal dark">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>substr(strip_tags($Data.DeskripsiProduct, 0, 45)</p>
+                        <p>{$Data.DeskripsiProduct}</p>
                     </div>
                 </div>
             </div>

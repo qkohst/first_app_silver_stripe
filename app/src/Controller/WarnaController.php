@@ -3,6 +3,7 @@
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
+use SilverStripe\ORM\PaginatedList;
 
 class WarnaController extends PageController
 {
@@ -46,6 +47,7 @@ class WarnaController extends PageController
             $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
         }
 
+
         $data = [
             "siteParent" => "Warna",
             "site" => "Warna",
@@ -53,7 +55,7 @@ class WarnaController extends PageController
             "Data" => $dataWarna,
             "CountData" => count($dataWarna),
             "Status" => $status,
-            "msg" => $msg
+            "msg" => $msg,
         ];
 
         return $this->customise($data)->renderWith((array(
@@ -160,7 +162,7 @@ class WarnaController extends PageController
 
         $warna->update([
             'Deleted' => 1
-            
+
         ]);
         $warna->write();
 

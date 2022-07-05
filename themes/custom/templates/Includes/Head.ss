@@ -15,6 +15,8 @@
   <link href="$ThemeDir/assets/icofont/icofont.min.css" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
+   <!-- DataTables -->
+  <link rel="stylesheet" href="$ThemeDir/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- CSS Files -->
   <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
   <!-- Select2 -->

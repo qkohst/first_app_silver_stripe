@@ -16,7 +16,9 @@ class ProductController extends PageController
         'detail',
         'edit',
         'doUpdate',
-        'doDelete'
+        'doDelete',
+        'editStokHarga',
+        'doUpdateStokHarga'
     ];
 
     public function index(HTTPRequest $request)
@@ -201,6 +203,19 @@ class ProductController extends PageController
         $id = $request->params()["ID"];
         $product = Product::get()->byID($id);
 
+        $status = "";
+        $msg = "";
+        if (isset($_SESSION['savedata_status'])) {
+            if ($_SESSION['savedata_status'] == "error") {
+                $status = "error";
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['savedata_status'] == "success") {
+                $status = "success";
+                $msg = $_SESSION['msg'];
+            }
+            unset($_SESSION['savedata_status']);
+        }
+
         // $listGambar = [];
         // $no = 1;
 
@@ -219,6 +234,8 @@ class ProductController extends PageController
             "siteParent" => "Detail Product",
             "site" => "Product",
             "Data" => $product,
+            "Status" => $status,
+            "msg" => $msg
         ];
 
         return $this->customise($data)->renderWith((array(
@@ -292,5 +309,109 @@ class ProductController extends PageController
         $_SESSION['deletedata_status'] = "success";
         $_SESSION['msg'] = "Berhasil dihapus";
         return $this->redirect(Director::absoluteBaseURL() . "Product");
+    }
+
+    public function editStokHarga(HTTPRequest $request)
+    {
+        $status = "";
+        $msg = "";
+        if (isset($_SESSION['savedata_status'])) {
+            if ($_SESSION['savedata_status'] == "error") {
+                $status = "error";
+                $msg = $_SESSION['msg'];
+            } elseif ($_SESSION['savedata_status'] == "warning") {
+                $status = "warning";
+                $msg = $_SESSION['msg'];
+            }
+            unset($_SESSION['savedata_status']);
+        }
+
+        $id = $request->params()["ID"];
+        $warnaProduct = WarnaProduct::get()->byID($id);
+        $data = [
+            "siteParent" => "Edit Stok & Harga",
+            "site" => "Stok & Harga Product",
+            "Previous" => "Product/detail/" . $warnaProduct->ProductID,
+            "Data" => $warnaProduct,
+            "Status" => $status,
+            "msg" => $msg
+        ];
+
+        return $this->customise($data)->renderWith((array(
+            'ProductEditStokHarga', 'Page',
+        )));
+    }
+
+    public function doUpdateStokHarga(HTTPRequest $request)
+    {
+        $id = $request->params()["ID"];
+        $hargaTerakhir = HargaProduct::get()->where('WarnaProductID = ' . $id)->last();
+        $jumlahterakhir = JumlahProduct::get()->where('WarnaProductID = ' . $id)->last();
+
+        if ($hargaTerakhir->Harga == str_replace(".", "", Convert::raw2sql($_REQUEST['Harga'])) && $jumlahterakhir->Jumlah == Convert::raw2sql($_REQUEST['Jumlah'])) {
+            $_SESSION['savedata_status'] = "warning";
+            $_SESSION['msg'] = "Tidak ada perubahan data";
+            return $this->redirectBack();
+        } elseif ($hargaTerakhir->Harga != str_replace(".", "", Convert::raw2sql($_REQUEST['Harga'])) && $jumlahterakhir->Jumlah != Convert::raw2sql($_REQUEST['Jumlah'])) {
+
+            $jumlahProduct = JumlahProduct::create();
+            $jumlahProduct->Jumlah = Convert::raw2sql($_REQUEST['Jumlah']);
+            $jumlahProduct->WarnaProductID = $id;
+            $jumlahProduct->write();
+
+            $hargaProduct = HargaProduct::create();
+            $hargaProduct->Harga = str_replace(".", "", Convert::raw2sql($_REQUEST['Harga']));
+            $hargaProduct->WarnaProductID = $id;
+            $hargaProduct->write();
+
+            $_SESSION['savedata_status'] = "success";
+            $_SESSION['msg'] = "Harga & Jumlah Product Berhasil diedit";
+
+            return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
+        } elseif ($hargaTerakhir->Harga != str_replace(".", "", Convert::raw2sql($_REQUEST['Harga']))) {
+
+            $hargaProduct = HargaProduct::create();
+            $hargaProduct->Harga = str_replace(".", "", Convert::raw2sql($_REQUEST['Harga']));
+            $hargaProduct->WarnaProductID = $id;
+            $hargaProduct->write();
+
+            $_SESSION['savedata_status'] = "success";
+            $_SESSION['msg'] = "Jumlah Product Berhasil diedit";
+
+            return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
+        
+        } elseif ($jumlahterakhir->Jumlah != Convert::raw2sql($_REQUEST['Jumlah'])) {
+
+            $jumlahProduct = JumlahProduct::create();
+            $jumlahProduct->Jumlah = Convert::raw2sql($_REQUEST['Jumlah']);
+            $jumlahProduct->WarnaProductID = $id;
+            $jumlahProduct->write();
+
+            $_SESSION['savedata_status'] = "success";
+            $_SESSION['msg'] = "Harga Product Berhasil diedit";
+
+            return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
+        }
+
+
+        // if (trim($_REQUEST['Jumlah']) == null) {
+        //     $_SESSION['savedata_status'] = "error";
+        //     $_SESSION['msg'] = "Deskripsi product tidak boleh kosong";
+        //     return $this->redirectBack();
+        // } else {
+        //     $id = $request->params()["ID"];
+        //     $product = Product::get()->byID($id);
+
+        //     $product->update([
+        //         'DeskripsiProduct' => Convert::raw2sql($_REQUEST['DeskripsiProduct']),
+        //         'Status' => Convert::raw2sql($_REQUEST['Status'])
+        //     ]);
+        //     $product->write();
+
+        //     $_SESSION['savedata_status'] = "success";
+        //     $_SESSION['msg'] = "Berhasil diedit";
+
+        //     return $this->redirect(Director::absoluteBaseURL() . "Product");
+        // }
     }
 }

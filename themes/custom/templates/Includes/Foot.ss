@@ -13,6 +13,26 @@
 <script src="$ThemeDir/assets/js/plugins/jquery/jquery.min.js"></script>
 <script src="$ThemeDir/assets/js/jquery.mask.min.js"></script>
 
+<!-- DataTables -->
+<script src="$ThemeDir/assets/plugins/datatables/jquery.dataTables.js"></script>
+<script src="$ThemeDir/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+    });
+  });
+</script>
+
+
+<%-- Separator Rupiah --%>
 <script type="text/javascript">
     $(document).ready(function(){
         // Format mata uang.
