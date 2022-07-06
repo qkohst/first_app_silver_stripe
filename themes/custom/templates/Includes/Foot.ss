@@ -1,11 +1,11 @@
 <!--   Core JS Files   -->
-  <script src="$ThemeDir/assets/js/core/jquery.3.2.1.min.js"></script>
-  <script src="$ThemeDir/assets/js/core/popper.min.js"></script>
-  <script src="$ThemeDir/assets/js/core/bootstrap.min.js"></script>
-  <script src="$ThemeDir/assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="$ThemeDir/assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="$ThemeDir/assets/js/plugins/chartjs.min.js"></script>
-  <script src="$ThemeDir/assets/js/argon-dashboard.min.js?v=2.0.2"></script>
+<script src="$ThemeDir/assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="$ThemeDir/assets/js/core/popper.min.js"></script>
+<script src="$ThemeDir/assets/js/core/bootstrap.min.js"></script>
+<script src="$ThemeDir/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="$ThemeDir/assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="$ThemeDir/assets/js/plugins/chartjs.min.js"></script>
+<script src="$ThemeDir/assets/js/argon-dashboard.min.js?v=2.0.2"></script>
 
 <!-- Sweet Alert -->
 <script src="$ThemeDir/assets/js/plugins/sweetalert/sweetalert.min.js"></script>
@@ -14,37 +14,82 @@
 <script src="$ThemeDir/assets/js/jquery.mask.min.js"></script>
 
 <!-- DataTables -->
-<script src="$ThemeDir/assets/plugins/datatables/jquery.dataTables.js"></script>
-<script src="$ThemeDir/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script>
-  $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
+    var column_name = $(document).find('#tableWarna > thead > tr');
+    let params = [];
+    $(document).ready(function () {
+        $('#tableWarna').DataTable({
+            'language': {
+                'lengtMenu': 'Tampilkan _MENU_ data per halaman',
+                'zeroRecord': 'Maaf data tidak ditemukan',
+                'info': 'Menampilan halaman _PAGE_ dari _PAGES_ halaman',
+                'infoEmpty': 'Tidak ada data',
+                'processing': 'Sedang memproses permintaan anda...',
+                'infoFiltered': '(filter dari _MAX_ total data)',
+                'searchPlaceholder': 'Cari data ?',
+                "sSearch": "Cari :",
+                'paginate': {
+                    'first': 'Pertama',
+                    'last': 'Terakhir',
+                    'next': 'Selanjutnya',
+                    'previous': 'Sebelumnya'
+                }
+            },
+            "processing": true,
+            "serverSide": true,
+            'columnDefs': [{
+                target: 0,
+                orderable: false,
+            }, {
+                target: 0,
+                orderable: false,
+            }],
+            "destroy": false,
+            'order': [
+                [0, 'DESC']
+            ],
+            'paging': true,
+            'searching': true,
+            'ajax': {
+                "url": `{$BaseHref}Warna/getDataWarna`,
+                'data': function (d) {
+                    d.filter_record = params;
+                }
+            },
+            createRow: function (row, data, dataIndex) {
+                // Set the data-title atribute
+                column_name.find('th').each(function (key, val) {
+                    $(row).find('td:eq(' + parseInt(key) + ')')
+                        .attr('data-title', $(this).text());
+                });
+            },
+            'deferRender': true
+        });
     });
-  });
+
 </script>
 
 
-<%-- Separator Rupiah --%>
+<!-- <%-- Separator Rupiah --%> -->
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         // Format mata uang.
-        $( '.uang' ).mask('000.000.000.000.000', {reverse: true});
+        $('.uang').mask('000.000.000.000.000', {
+            reverse: true
+        });
     })
+
 </script>
 <script>
-    <%-- Enable Disable Form Input Ketika Warna Product Dipilih --%>
-    $( ".checkbox-harga" ).on( "click", function(e) {
+    //--Enable Disable Form Input Ketika Warna Product Dipilih--
+    $(".checkbox-harga").on("click", function (e) {
         id = e.target.dataset.id;
-        
-        if($(this).is(':checked')){
+
+        if ($(this).is(':checked')) {
             document.getElementById(`HargaProduct${id}`).disabled = false;
             document.getElementById(`JumlahProduct${id}`).disabled = false;
         } else {
@@ -55,44 +100,46 @@
         }
     });
 
-    <%-- Sweet Alert --%>
-    $(function() {
+    // <
+    // %
+    // --Sweet Alert-- % >
+    $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()
         // Summernote
         $('.summernote').summernote()
     })
-    
+
     //== Class definition
-    var SweetAlert2Demo = function() {
+    var SweetAlert2Demo = function () {
         //== Demos
-        var initDemos = function() {
-            $('.btn-delete').click(function(e) {
-                    id = e.target.dataset.id;
-                    swal({
-                        title: 'Apakah anda yakin ?',
-                        text: "Hapus data secara permanen !",
-                        type: 'warning',
-                        buttons: {
-                            confirm: {
-                                text: 'Hapus',
-                                className: 'btn bg-gradient-primary'
-                            },
-                            cancel: {
-                                visible: true,
-                                text: 'Batal',
-                                className: 'btn btn-outline-danger'
-                            }
+        var initDemos = function () {
+            $('.btn-delete').click(function (e) {
+                id = e.target.dataset.id;
+                swal({
+                    title: 'Apakah anda yakin ?',
+                    text: "Hapus data secara permanen !",
+                    type: 'warning',
+                    buttons: {
+                        confirm: {
+                            text: 'Hapus',
+                            className: 'btn bg-gradient-primary'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Batal',
+                            className: 'btn btn-outline-danger'
                         }
-                    }).then((Delete) => {
-                        if (Delete) {
-                            $(`#delete${id}`).submit();
-                        } else {
-                            swal.close();
-                        }
-                    });
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        $(`#delete${id}`).submit();
+                    } else {
+                        swal.close();
+                    }
                 });
-            $('.btn-save').click(function(e) {
+            });
+            $('.btn-save').click(function (e) {
                 id = e.target.dataset.id;
                 swal({
                     title: 'Apakah anda yakin ?',
@@ -120,21 +167,23 @@
         };
         return {
             //== Init
-            init: function() {
+            init: function () {
                 initDemos();
             },
         };
     }();
     //== Class Initialization
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         SweetAlert2Demo.init();
     });
 
-    <%-- Timmer Notifikasi --%>
-    window.setTimeout(function() {
-        $(".alert-message").fadeTo(200, 0).slideUp(200, function(){
-            $(this).remove(); 
+    // <
+    // %
+    // --Timmer Notifikasi-- % >
+    window.setTimeout(function () {
+        $(".alert-message").fadeTo(200, 0).slideUp(200, function () {
+            $(this).remove();
         });
-    }, 2000); 
-    
+    }, 2000);
+
 </script>

@@ -16,10 +16,14 @@
   <!-- Font Awesome Icons -->
   <link href="$ThemeDir/assets/css/nucleo-svg.css" rel="stylesheet" />
    <!-- DataTables -->
-  <link rel="stylesheet" href="$ThemeDir/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- <link rel="stylesheet" href="$ThemeDir/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css"> -->
   <!-- CSS Files -->
   <link id="pagestyle" href="$ThemeDir/assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
   <!-- Select2 -->
   <link rel="stylesheet" href="$ThemeDir/assets/plugins/select2/css/select2.css">
+
+  <!-- import file bootstrap  -->
+  <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 
 </head>

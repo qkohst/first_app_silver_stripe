@@ -3,16 +3,100 @@
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
-use SilverStripe\ORM\PaginatedList;
+use Yajra\DataTables\Facades\DataTables;
 
 class WarnaController extends PageController
 {
     private static $allowed_actions = [
+        'getDataWarnaColumn',
+        'getDataWarna',
         'doSave',
         'edit',
         'doUpdate',
         'doDelete'
     ];
+
+    public function getDataWarnaColumn($key)
+    {
+        $array = ['Created', 'ID', 'NamaWarna', 'Status'];
+        return $array[$key];
+    }
+
+    public function getDataWarna()
+    {
+        $arr = array();
+        $limit = $_REQUEST['length'];
+        $offset = $_REQUEST['start'];
+        $filter_record = (isset($_REQUEST['filter_record'])) ? $_REQUEST['filter_record'] : '';
+
+        $parrams_array = array();
+        parse_str($filter_record, $parrams_array);
+        $columnsort = (isset($_REQUEST['order'][0]['column'])) ? $_REQUEST['order']['0']['column'] : 0;
+        $typesort = (isset($_REQUEST['order'][0]['dir'])) ? $_REQUEST['order']['0']['dir'] : 'DESC';
+        $Dataall = Warna::get()->where('Deleted = 0');
+
+        $searchValue = str_replace(array("#", "'", ";"), '', $_REQUEST['search']['value']);
+
+        $search = (isset($searchValue)) ? $searchValue : '';
+        if ($search != '') {
+            $Dataall = $Dataall->where("NamaWarna like '%{$search}%'");
+        }
+
+        if (!empty($parrams_array)) {
+            foreach ($parrams_array as $key => $value) {
+                if (strpos($key, 'ID') != FALSE && $value != '' && $value != 0) {
+                    $Dataall = $Dataall->where("Upper(" . $key . ") = '" . strtoupper($value) . "'");
+                } elseif ($value != '' && strpos($key, 'ID') != TRUE && $value != null) {
+                    $Dataall = $Dataall->where("Upper(" . $key . ") like '%" . strtoupper($value) . "%'");
+                }
+            }
+        }
+        $Dataall = $Dataall->sort(self::getDataWarnaColumn($columnsort), $typesort);
+        $total = $Dataall->count();
+        $Dataall = $Dataall->limit($limit, $offset);
+
+        foreach ($Dataall as $key => $value) {
+            $temparr = array();
+
+            $btnedit = '<a href="javascript:;" class="btn btn-link text-secondary mb-0"
+                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="icofont-options"></i>
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-end  px-2 pt-3 pb-0"
+                            aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item border-radius-md"
+                                    href="' . Director::absoluteBaseURL() . 'Warna/edit/' . $value->ID . '">
+                                    <i class="icofont-ui-edit mx-2"></i> Edit
+                                </a>
+                                <a href="#" class="dropdown-item border-radius-md btn-delete"
+                                    data-id="' . $value->ID . '">
+                                    <i class="icofont-ui-delete mx-2"></i> Hapus
+                                </a>
+                                <form action="' . Director::absoluteBaseURL() . 'Warna/doDelete/' . $value->ID . '" method="post"
+                                    id="delete' . $value->ID . '">
+                                </form>
+                            </li>
+                        </ul>';
+
+            if ($value->Status == 1) {
+                $status = '<span class="badge badge-sm bg-gradient-success">Aktif</span>';
+            } else {
+                $status = '<span class="badge badge-sm bg-gradient-danger">Tidak Aktif</span>';
+            }
+
+            $temparr[] = $value->NamaWarna;
+            $temparr[] = $status;
+            $temparr[] = $btnedit;
+            $arr[] = $temparr;
+        }
+        $result = array(
+            'data' => $arr,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total
+        );
+        return json_encode($result);
+    }
 
     public function index(HTTPRequest $request)
     {
@@ -38,22 +122,20 @@ class WarnaController extends PageController
             unset($_SESSION['deletedata_status']);
         }
 
-        if (isset($_REQUEST['search'])) {
-            $search = Convert::raw2sql($_REQUEST['search']);
-            $filter = 'NamaWarna' . ' LIKE \'%' . $search . '%\'';
-            $dataWarna = Warna::get()->where('Deleted = 0 AND ' . $filter)->sort('NamaWarna');
-        } else {
-            $search = null;
-            $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
-        }
+        // if (isset($_REQUEST['search'])) {
+        //     $search = Convert::raw2sql($_REQUEST['search']);
+        //     $filter = 'NamaWarna' . ' LIKE \'%' . $search . '%\'';
+        //     $dataWarna = Warna::get()->where('Deleted = 0 AND ' . $filter)->sort('NamaWarna');
+        // } else {
+        //     $search = null;
+        //     $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
+        // }
+        // $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
 
 
         $data = [
             "siteParent" => "Warna",
             "site" => "Warna",
-            "search" => $search,
-            "Data" => $dataWarna,
-            "CountData" => count($dataWarna),
             "Status" => $status,
             "msg" => $msg,
         ];
