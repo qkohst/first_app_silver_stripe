@@ -107,7 +107,7 @@
                 <hr class="horizontal dark">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>{$Data.DeskripsiProduct}</p>
+                        <p>{$Data.DeskripsiProduct.raw}</p>
                     </div>
                 </div>
             </div>

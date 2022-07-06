@@ -135,7 +135,7 @@ class ProductController extends PageController
         // Simpan Data Product 
         $product = Product::create();
         $product->NamaProduct = Convert::raw2sql($_REQUEST['NamaProduct']);
-        $product->DeskripsiProduct = Convert::raw2sql($_REQUEST['DeskripsiProduct']);
+        $product->DeskripsiProduct = $_REQUEST['DeskripsiProduct'];
         $product->Status = 1;
         $product->write();
 
@@ -202,6 +202,7 @@ class ProductController extends PageController
     {
         $id = $request->params()["ID"];
         $product = Product::get()->byID($id);
+        $product->DeskripsiProduct = str_replace('<br />', '', $product->DeskripsiProduct);
 
         $status = "";
         $msg = "";
@@ -230,10 +231,13 @@ class ProductController extends PageController
         // }
 
 
+        // print_r($listGambar);
+
         $data = [
             "siteParent" => "Detail Product",
             "site" => "Product",
             "Data" => $product,
+            // 'DataGambar' => $listGambar,
             "Status" => $status,
             "msg" => $msg
         ];
@@ -260,6 +264,9 @@ class ProductController extends PageController
 
         $id = $request->params()["ID"];
         $product = Product::get()->byID($id);
+
+        $product->DeskripsiProduct = str_replace('<br />', '\n', $product->DeskripsiProduct);
+
         $data = [
             "siteParent" => "Edit Product",
             "site" => "Product",
@@ -284,7 +291,7 @@ class ProductController extends PageController
             $product = Product::get()->byID($id);
 
             $product->update([
-                'DeskripsiProduct' => Convert::raw2sql($_REQUEST['DeskripsiProduct']),
+                'DeskripsiProduct' => $_REQUEST['DeskripsiProduct'],
                 'Status' => Convert::raw2sql($_REQUEST['Status'])
             ]);
             $product->write();
@@ -379,7 +386,6 @@ class ProductController extends PageController
             $_SESSION['msg'] = "Jumlah Product Berhasil diedit";
 
             return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
-        
         } elseif ($jumlahterakhir->Jumlah != Convert::raw2sql($_REQUEST['Jumlah'])) {
 
             $jumlahProduct = JumlahProduct::create();
@@ -392,26 +398,5 @@ class ProductController extends PageController
 
             return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
         }
-
-
-        // if (trim($_REQUEST['Jumlah']) == null) {
-        //     $_SESSION['savedata_status'] = "error";
-        //     $_SESSION['msg'] = "Deskripsi product tidak boleh kosong";
-        //     return $this->redirectBack();
-        // } else {
-        //     $id = $request->params()["ID"];
-        //     $product = Product::get()->byID($id);
-
-        //     $product->update([
-        //         'DeskripsiProduct' => Convert::raw2sql($_REQUEST['DeskripsiProduct']),
-        //         'Status' => Convert::raw2sql($_REQUEST['Status'])
-        //     ]);
-        //     $product->write();
-
-        //     $_SESSION['savedata_status'] = "success";
-        //     $_SESSION['msg'] = "Berhasil diedit";
-
-        //     return $this->redirect(Director::absoluteBaseURL() . "Product");
-        // }
     }
 }

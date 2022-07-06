@@ -6,7 +6,7 @@ class Product extends DataObject
 {
     private static $db = [
         'NamaProduct' => 'Varchar(100)',
-        'DeskripsiProduct' => 'Text',
+        'DeskripsiProduct' => 'HTMLText',
         'Status' => 'Boolean',
         'Deleted' => 'Boolean'
     ];

@@ -62,6 +62,7 @@
         // Summernote
         $('.summernote').summernote()
     })
+    
     //== Class definition
     var SweetAlert2Demo = function() {
         //== Demos
