@@ -45,24 +45,21 @@ class ProductController extends PageController
             unset($_SESSION['deletedata_status']);
         }
 
-        if (isset($_REQUEST['search'])) {
-            $search = $_REQUEST['search'];
-            $filter = 'NamaProduct' . ' LIKE \'%' . $_REQUEST['search'] . '%\'';
-            $dataProduct = Product::get()->where('Deleted = 0 AND ' . $filter);
-            foreach ($dataProduct as $product) {
-                $product->gambar = Gambar::get()->where('ProductID = ' . $product->ID)->first();
-            }
-        } else {
-            $search = null;
-            $dataProduct = Product::get()->where('Deleted = 0');
-        }
+        // if (isset($_REQUEST['search'])) {
+        //     $search = $_REQUEST['search'];
+        //     $filter = 'NamaProduct' . ' LIKE \'%' . $_REQUEST['search'] . '%\'';
+        //     $dataProduct = Product::get()->where('Deleted = 0 AND ' . $filter);
+        // } else {
+        //     $search = null;
+        //     $dataProduct = Product::get()->where('Deleted = 0');
+        // }
 
-
+        $dataProduct = Product::get()->where('Deleted = 0');
 
         $data = [
             "siteParent" => "Product",
             "site" => "Product",
-            "search" => $search,
+            // "search" => $search,
             "Data" => $dataProduct,
             "CountData" => count($dataProduct),
             "Status" => $status,

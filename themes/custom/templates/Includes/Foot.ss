@@ -18,6 +18,7 @@
 <!-- Bootstrap JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+<!-- Ajax Datatable Serverside Data Warna  -->
 <script>
     var column_name = $(document).find('#tableWarna > thead > tr');
     let params = [];

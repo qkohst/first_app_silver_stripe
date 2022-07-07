@@ -10,14 +10,14 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <%-- Search --%>
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-          <% if $siteParent = $site %>
+          <%-- <% if $siteParent = $site %>
             <form action="{$BaseHref}$siteParent">
               <div class="input-group">
                 <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                 <input type="text" class="form-control" name="search" placeholder="Search..." value="$search">
               </div>
             </form>
-          <% end_if %>
+          <% end_if %> --%>
           </div>
           <%-- End Search --%>
           <ul class="navbar-nav  justify-content-end">

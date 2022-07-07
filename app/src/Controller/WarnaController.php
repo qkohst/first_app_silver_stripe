@@ -130,8 +130,6 @@ class WarnaController extends PageController
         //     $search = null;
         //     $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
         // }
-        // $dataWarna = Warna::get()->where('Deleted = 0')->sort('NamaWarna');
-
 
         $data = [
             "siteParent" => "Warna",
