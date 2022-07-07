@@ -1,10 +1,11 @@
 <?php
 
+use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Convert;
 
-class AuthController extends PageController
+class AuthController extends ContentController
 {
     private static $allowed_actions = [
         'login',
@@ -13,9 +14,19 @@ class AuthController extends PageController
         'doRegister',
         'doLogout'
     ];
-    
+    public function init()
+    {
+        parent::init();
+        @session_start();
+    }
+
     public function login(HTTPRequest $request)
     {
+        $user_logged_id = isset($_SESSION['logged_user_id']) ? $_SESSION['logged_user_id'] : "";
+        if ($user_logged_id) {
+            return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
+        }
+        
         $statusRegister = "";
         $msgRegister = "";
         if (isset($_SESSION['register_status'])) {

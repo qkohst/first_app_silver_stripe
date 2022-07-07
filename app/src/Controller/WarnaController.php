@@ -15,6 +15,11 @@ class WarnaController extends PageController
         'doDelete'
     ];
 
+    public function init()
+    {
+        parent::init();
+        @session_start();
+    }
 
     public function getDataWarnaColumn($key)
     {

@@ -28,19 +28,23 @@ namespace {
         protected function init()
         {
             parent::init();
-            @session_start();
+            // @session_start();
+
+            if (!session_id()) {
+                session_start();
+            }
+
+            $user_logged_id = isset($_SESSION['logged_user_id']) ? $_SESSION['logged_user_id'] : "";
+            // $classnya = get_class();
+            if (empty($user_logged_id)) {
+                header("Location: " . Director::absoluteBaseURL() . "Auth/login");
+                die;
+                return $this->redirect(Director::absoluteBaseURL() . "Auth/login");
+            }
+
             // You can include any CSS or JS required by your project here.
             // See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
         }
 
-        public function index(HTTPRequest $request)
-        {
-            $user_logged_id = isset($_SESSION['logged_user_id']) ? $_SESSION['logged_user_id'] : "";
-            if ($user_logged_id) {
-                return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
-            } else {
-                return $this->redirect(Director::absoluteBaseURL() . "Auth/login");
-            }
-        }
     }
 }
