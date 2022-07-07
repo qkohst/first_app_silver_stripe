@@ -3,6 +3,8 @@
 namespace {
 
     use SilverStripe\CMS\Controllers\ContentController;
+    use SilverStripe\Control\Director;
+    use SilverStripe\Control\HTTPRequest;
 
     class PageController extends ContentController
     {
@@ -29,6 +31,25 @@ namespace {
             @session_start();
             // You can include any CSS or JS required by your project here.
             // See: https://docs.silverstripe.org/en/developer_guides/templates/requirements/
+        }
+
+        public function index(HTTPRequest $request)
+        {
+            $data = [
+                "siteParent" => "Login",
+                "site" => "Login"
+            ];
+
+            return $this->customise($data)->renderWith((array(
+                'Login', 'Auth',
+            )));
+
+            // $user_logged_id = isset($_SESSION['logged_user_id']) ? $_REQUEST['logged_user_id'] : "";
+            // if ($user_logged_id) {
+            //     header("Location:" . Director::absoluteBaseURL() . "Dashboard");
+            //     die;
+            //     return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
+            // }
         }
     }
 }

@@ -2,14 +2,14 @@
     <div class="col-md-12 mb-lg-0 mb-4">
         <% if $Status == "warning" %>
         <div class="alert alert-warning alert-message fade show" role="alert">
-        <strong>$msg</strong>
+            <strong>$msg</strong>
         </div>
         <% else_if $Status == "error" %>
         <div class="alert alert-danger alert-message fade show" role="alert">
-        <strong>$msg</strong>
+            <strong>$msg</strong>
         </div>
         <% end_if %>
-        
+
         <div class="card">
             <div class="card-header pb-0">
                 <h6 class="text-uppercase">{$siteParent}</h6>
@@ -20,7 +20,7 @@
                         <div class="col-md-12">
                             <label for="example-text-input" class="form-control-label">Nama Product</label>
                             <p>{$Data.Product.NamaProduct}</p>
-                        </div>  
+                        </div>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-3">
@@ -38,16 +38,18 @@
                                     <label class="form-check-label mt-1">{$Data.Warna.NamaWarna}</label>
                                 </div>
                                 <div class="col-md-2 my-1">
-                                    <input class="form-control" type="number" name="Jumlah" value="{$Data.JumlahProduct.last.Jumlah}" required>
+                                    <input class="form-control" type="number" name="Jumlah"
+                                        value="{$Data.JumlahProduct.last.Jumlah}" required>
                                 </div>
                                 <div class="col-md-7 my-1">
                                     <div class="input-group">
                                         <span class="input-group-text text-body">Rp.</span>
-                                        <input type="text" class="form-control uang" name="Harga" value="{$Data.HargaProduct.last.Harga}" required>
+                                        <input type="text" class="form-control uang" name="Harga"
+                                            value="{$Data.HargaProduct.last.Harga}" required>
                                     </div>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                 </div>
 

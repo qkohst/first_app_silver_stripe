@@ -3,7 +3,6 @@
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Convert;
-use Yajra\DataTables\Facades\DataTables;
 
 class WarnaController extends PageController
 {

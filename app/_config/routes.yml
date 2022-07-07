@@ -6,6 +6,7 @@ After:
 ---
 SilverStripe\Control\Director:
   rules:
+    "Auth//$Action/$ID": AuthController
     "Dashboard//$Action/$ID": DashboardController
     "Product//$Action/$ID": ProductController
     "Warna//$Action/$ID": WarnaController
