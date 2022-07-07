@@ -6,6 +6,27 @@
                 <p class="mb-0">Masukkan email dan password anda untuk Login</p>
             </div>
             <div class="card-body">
+                <!-- Alert -->
+                <% if $StatusLogin == "success" %>
+                <div class="alert alert-success alert-message fade show" role="alert">
+                    <strong>$msglogin</strong>
+                </div>
+                <% else_if $StatusLogin == "error" %>
+                <div class="alert alert-danger alert-message fade show" role="alert">
+                    <strong>$msglogin</strong>
+                </div>
+                <% end_if %>
+                <% if $StatusRegister == "success" %>
+                <div class="alert alert-success alert-message fade show" role="alert">
+                    <strong>$msgRegister</strong>
+                </div>
+                <% else_if $StatusRegister == "error" %>
+                <div class="alert alert-danger alert-message fade show" role="alert">
+                    <strong>$msgRegister</strong>
+                </div>
+                <% end_if %>
+                <!-- End Alert  -->
+
                 <form action="{$BaseHref}Auth/doLogin" method="post" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="AuthenticationMethod"
                         value="SilverStripe\Security\MemberAuthenticator\MemberAuthenticator" class="hidden" />

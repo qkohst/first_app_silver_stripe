@@ -26,23 +26,17 @@ class ProductController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if ($_SESSION['savedata_status'] == "error") {
-                $status = "error";
-                $msg = $_SESSION['msg'];
-            } elseif ($_SESSION['savedata_status'] == "success") {
-                $status = "success";
-                $msg = $_SESSION['msg'];
-            }
+            $status = $_SESSION['savedata_status'];
+            $msg = $_SESSION['msg'];
+
             unset($_SESSION['savedata_status']);
+            unset($_SESSION['msg']);
         } elseif (isset($_SESSION['deletedata_status'])) {
-            if ($_SESSION['deletedata_status'] == "error") {
-                $status = "error";
-                $msg = $_SESSION['msg'];
-            } elseif ($_SESSION['deletedata_status'] == "success") {
-                $status = "success";
-                $msg = $_SESSION['msg'];
-            }
+            $status = $_SESSION['deletedata_status'];
+            $msg = $_SESSION['msg'];
+
             unset($_SESSION['deletedata_status']);
+            unset($_SESSION['msg']);
         }
 
         // if (isset($_REQUEST['search'])) {
@@ -76,14 +70,11 @@ class ProductController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if ($_SESSION['savedata_status'] == "error") {
-                $status = "error";
-                $msg = $_SESSION['msg'];
-            } elseif ($_SESSION['savedata_status'] == "success") {
-                $status = "success";
-                $msg = $_SESSION['msg'];
-            }
+            $status = $_SESSION['savedata_status'];
+            $msg = $_SESSION['msg'];
+
             unset($_SESSION['savedata_status']);
+            unset($_SESSION['msg']);
         }
 
         $warna = Warna::get()->where('Deleted = 0 AND Status = 1')->sort('NamaWarna');;
@@ -249,14 +240,11 @@ class ProductController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if ($_SESSION['savedata_status'] == "error") {
-                $status = "error";
-                $msg = $_SESSION['msg'];
-            } elseif ($_SESSION['savedata_status'] == "success") {
-                $status = "success";
-                $msg = $_SESSION['msg'];
-            }
+            $status = $_SESSION['savedata_status'];
+            $msg = $_SESSION['msg'];
+
             unset($_SESSION['savedata_status']);
+            unset($_SESSION['msg']);
         }
 
         $id = $request->params()["ID"];
@@ -320,14 +308,11 @@ class ProductController extends PageController
         $status = "";
         $msg = "";
         if (isset($_SESSION['savedata_status'])) {
-            if ($_SESSION['savedata_status'] == "error") {
-                $status = "error";
-                $msg = $_SESSION['msg'];
-            } elseif ($_SESSION['savedata_status'] == "warning") {
-                $status = "warning";
-                $msg = $_SESSION['msg'];
-            }
+            $status = $_SESSION['savedata_status'];
+            $msg = $_SESSION['msg'];
+
             unset($_SESSION['savedata_status']);
+            unset($_SESSION['msg']);
         }
 
         $id = $request->params()["ID"];

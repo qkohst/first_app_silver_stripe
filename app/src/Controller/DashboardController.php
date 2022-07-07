@@ -10,6 +10,7 @@ class DashboardController extends PageController
         $countWarna = count(Warna::get()->where('Deleted = 0'));
         $contProduct = count(Product::get()->where('Deleted = 0'));
 
+        // print_r($_SESSION);die;
         $data = [
             "siteParent" => "Dashboard",
             "site" => "Dashboard",

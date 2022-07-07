@@ -35,21 +35,12 @@ namespace {
 
         public function index(HTTPRequest $request)
         {
-            $data = [
-                "siteParent" => "Login",
-                "site" => "Login"
-            ];
-
-            return $this->customise($data)->renderWith((array(
-                'Login', 'Auth',
-            )));
-
-            // $user_logged_id = isset($_SESSION['logged_user_id']) ? $_REQUEST['logged_user_id'] : "";
-            // if ($user_logged_id) {
-            //     header("Location:" . Director::absoluteBaseURL() . "Dashboard");
-            //     die;
-            //     return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
-            // }
+            $user_logged_id = isset($_SESSION['logged_user_id']) ? $_SESSION['logged_user_id'] : "";
+            if ($user_logged_id) {
+                return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
+            } else {
+                return $this->redirect(Director::absoluteBaseURL() . "Auth/login");
+            }
         }
     }
 }

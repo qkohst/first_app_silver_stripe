@@ -46,6 +46,7 @@
         </section>
     </main>
     <!--   Core JS Files   -->
+    <script src="$ThemeDir/assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="$ThemeDir/assets/js/core/popper.min.js"></script>
     <script src="$ThemeDir/assets/js/core/bootstrap.min.js"></script>
     <script src="$ThemeDir/assets/js/plugins/perfect-scrollbar.min.js"></script>
@@ -58,6 +59,13 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
+
+        // --Timmer Notifikasi-- % >
+        window.setTimeout(function () {
+            $(".alert-message").fadeTo(200, 0).slideUp(200, function () {
+                $(this).remove();
+            });
+        }, 2000);
 
     </script>
     <!-- Github buttons -->

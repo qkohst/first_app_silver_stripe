@@ -6,14 +6,22 @@
                 <p class="mb-0">Isikan identitas anda untuk Daftar</p>
             </div>
             <div class="card-body">
+                <!-- Alert -->
+                <% if $Status == "success" %>
+                <div class="alert alert-success alert-message fade show" role="alert">
+                    <strong>$msg</strong>
+                </div>
+                <% else_if $Status == "error" %>
+                <div class="alert alert-danger alert-message fade show" role="alert">
+                    <strong>$msg</strong>
+                </div>
+                <% end_if %>
+                <!-- End Alert  -->
+
                 <form action="{$BaseHref}Auth/doRegister" method="post" enctype="application/x-www-form-urlencoded">
                     <div class="mb-3">
-                        <input type="text" name="namaDepan" class="form-control form-control-lg"
-                            placeholder="Nama Depan" aria-label="Nama Depan" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" name="namaBelakang" class="form-control form-control-lg"
-                            placeholder="Nama Belakang" aria-label="Nama Belakang" required>
+                        <input type="text" name="namaLengkap" class="form-control form-control-lg"
+                            placeholder="Nama Lengkap" aria-label="Nama Lengkap" required>
                     </div>
                     <div class="mb-3">
                         <input type="email" name="email" class="form-control form-control-lg" placeholder="Email"
@@ -22,13 +30,16 @@
                     <div class="mb-3">
                         <input type="password" name="password" class="form-control form-control-lg"
                             placeholder="Password" aria-label="Password" required>
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+                            Password minimal terdiri dari 8 karakter
+                        </small>
                     </div>
                     <div class="mb-3">
                         <input type="password" name="confirmPassword" class="form-control form-control-lg"
                             placeholder="Ulangi Password" aria-label="Ulangi Password" required>
                     </div>
                     <div class="form-check form-check-info text-start">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label" for="flexCheckDefault">
                             Saya setuju dengan <a href="javascript:;" class="text-dark font-weight-bolder">Syarat dan
                                 Ketentuan</a>
