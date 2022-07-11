@@ -12,7 +12,9 @@ class AuthController extends ContentController
         'doLogin',
         'register',
         'doRegister',
-        'doLogout'
+        'doLogout',
+        'changePassword',
+        'doChangePassword'
     ];
     public function init()
     {
@@ -26,7 +28,7 @@ class AuthController extends ContentController
         if ($user_logged_id) {
             return $this->redirect(Director::absoluteBaseURL() . "Dashboard");
         }
-        
+
         $statusRegister = "";
         $msgRegister = "";
         if (isset($_SESSION['register_status'])) {
@@ -150,5 +152,58 @@ class AuthController extends ContentController
     {
         session_destroy();
         return $this->redirect(Director::absoluteBaseURL() . 'Auth/login');
+    }
+
+    public function changePassword(HTTPRequest $request)
+    {
+
+        $status = "";
+        $msg = "";
+        if (isset($_SESSION['changePassword_status'])) {
+            $status = $_SESSION['changePassword_status'];
+            $msg = $_SESSION['changePassword_msg'];
+            unset($_SESSION['changePassword_status']);
+        }
+
+        $data = [
+            "siteParent" => "Change Password",
+            "site" => "Change Password",
+            "Status" => $status,
+            "msg" => $msg
+        ];
+
+        return $this->customise($data)->renderWith((array(
+            'ChangePassword', 'Auth',
+        )));
+    }
+
+    public function doChangePassword(HTTPRequest $request)
+    {
+        $user = User::get()->byID($_SESSION['logged_user_id']);
+
+        // Validate Old Password
+        if (password_verify($_REQUEST['oldPassword'], $user->Password) == 1) {
+
+            // Validate New Password 
+            if (strlen($_POST['newPassword']) < 8) {
+                $_SESSION['changePassword_status'] = "error";
+                $_SESSION['changePassword_msg'] = "Password baru minimal terdiri 8 karakter";
+                return $this->redirectBack();
+            } elseif ($_POST['newPassword'] == $_POST['confirmPassword']) {
+                $user->update([
+                    'Password' => password_hash($_REQUEST['newPassword'], PASSWORD_DEFAULT)
+                ]);
+                $user->write();
+                return $this->redirect(Director::absoluteBaseURL() . 'Dashboard');
+            } else {
+                $_SESSION['changePassword_status'] = "error";
+                $_SESSION['changePassword_msg'] = "Password baru dan Konfirmasi password harus sama";
+                return $this->redirectBack();
+            }
+        } else {
+            $_SESSION['changePassword_status'] = "error";
+            $_SESSION['changePassword_msg'] = "Password lama tidak sesuai";
+            return $this->redirectBack();
+        }
     }
 }

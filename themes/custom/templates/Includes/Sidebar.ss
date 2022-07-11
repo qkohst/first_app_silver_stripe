@@ -45,6 +45,7 @@
           </div>
         </div>
       </div>
-      <a href="{$BaseHref}Auth/doLogout" class="btn btn-danger btn-sm w-100 mb-3">Logout</a>
+      <a href="{$BaseHref}Auth/changePassword" class="btn btn-primary btn-sm w-100 mb-3">Ganti Password</a>
+      <a href="{$BaseHref}Auth/doLogout" class="btn btn-danger btn-sm w-100 mb-3">Logout / Keluar</a>
     </div>
   </aside>

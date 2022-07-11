@@ -49,7 +49,7 @@ class ProductController extends PageController
         // }
 
         $dataProduct = Product::get()->where('Deleted = 0');
-
+        
         $data = [
             "siteParent" => "Product",
             "site" => "Product",
