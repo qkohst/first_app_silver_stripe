@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-body p-3">
                   <div class="table-responsive p-0">
-                    <table id="example1" class="table align-items-center mb-0">
+                    <table id="tableProduct" class="table align-items-center mb-0">
                       <thead>
                         <tr>
                           <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
@@ -31,7 +31,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <% if $CountData == 0 %>
+                        <%-- <% if $CountData == 0 %>
 
                           <tr>
                               <td class="align-middle text-center" colspan="3">
@@ -85,7 +85,7 @@
                         
                         <% end_loop %>
 
-                        <% end_if %>
+                        <% end_if %> --%>
 
                       </tbody>
                     </table>

@@ -28,6 +28,7 @@ namespace {
         protected function init()
         {
             parent::init();
+            
             // @session_start();
 
             if (!session_id()) {
@@ -35,7 +36,6 @@ namespace {
             }
 
             $user_logged_id = isset($_SESSION['logged_user_id']) ? $_SESSION['logged_user_id'] : "";
-            // $classnya = get_class();
             if (empty($user_logged_id)) {
                 header("Location: " . Director::absoluteBaseURL() . "Auth/login");
                 die;

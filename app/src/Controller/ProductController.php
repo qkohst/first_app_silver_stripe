@@ -11,6 +11,8 @@ use SilverStripe\Assets\File;
 class ProductController extends PageController
 {
     private static $allowed_actions = [
+        'getDataProductColumn',
+        'getDataProduct',
         'addData',
         'doSave',
         'detail',
@@ -20,6 +22,100 @@ class ProductController extends PageController
         'editStokHarga',
         'doUpdateStokHarga'
     ];
+
+    public function getDataProductColumn($key)
+    {
+        $array = ['Created', 'ID', 'NamaProduct', 'Status'];
+        return $array[$key];
+    }
+
+    public function getDataProduct()
+    {
+        $arr = array();
+        $limit = $_REQUEST['length'];
+        $offset = $_REQUEST['start'];
+        $filter_record = (isset($_REQUEST['filter_record'])) ? $_REQUEST['filter_record'] : '';
+
+        $parrams_array = array();
+        parse_str($filter_record, $parrams_array);
+        $columnsort = (isset($_REQUEST['order'][0]['column'])) ? $_REQUEST['order']['0']['column'] : 0;
+        $typesort = (isset($_REQUEST['order'][0]['dir'])) ? $_REQUEST['order']['0']['dir'] : 'DESC';
+        $Dataall = Product::get()->where('Deleted = 0');
+
+        $searchValue = str_replace(array("#", "'", ";"), '', $_REQUEST['search']['value']);
+
+        $search = (isset($searchValue)) ? $searchValue : '';
+        if ($search != '') {
+            $Dataall = $Dataall->where("NamaProduct like '%{$search}%'");
+        }
+
+        if (!empty($parrams_array)) {
+            foreach ($parrams_array as $key => $value) {
+                if (strpos($key, 'ID') != FALSE && $value != '' && $value != 0) {
+                    $Dataall = $Dataall->where("Upper(" . $key . ") = '" . strtoupper($value) . "'");
+                } elseif ($value != '' && strpos($key, 'ID') != TRUE && $value != null) {
+                    $Dataall = $Dataall->where("Upper(" . $key . ") like '%" . strtoupper($value) . "%'");
+                }
+            }
+        }
+        $Dataall = $Dataall->sort(self::getDataProductColumn($columnsort), $typesort);
+        $total = $Dataall->count();
+        $Dataall = $Dataall->limit($limit, $offset);
+
+        foreach ($Dataall as $key => $value) {
+            $temparr = array();
+
+            $gambar = Gambar::get()->where('ProductID = ' . $value->ID)->last();
+            $btnedit = '<a href="javascript:;" class="btn btn-link text-secondary mb-0"
+                            id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="icofont-options"></i>
+                        </a>
+                        <ul class="dropdown-menu  dropdown-menu-end  px-2 pt-3 pb-0"
+                            aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item border-radius-md" href="' . Director::absoluteBaseURL() . 'Product/detail/' . $value->ID . '">
+                                    <i class="icofont-eye-alt mx-2"></i> Detail
+                                </a>
+                                <a class="dropdown-item border-radius-md"
+                                    href="' . Director::absoluteBaseURL() . 'Product/edit/' . $value->ID . '">
+                                    <i class="icofont-ui-edit mx-2"></i> Edit
+                                </a>
+                                <a href="#" class="dropdown-item border-radius-md btn-delete"
+                                    data-id="' . $value->ID . '">
+                                    <i class="icofont-ui-delete mx-2"></i> Hapus
+                                </a>
+                                <form action="' . Director::absoluteBaseURL() . 'Product/doDelete/' . $value->ID . '" method="post"
+                                    id="delete' . $value->ID . '">
+                                </form>
+                            </li>
+                        </ul>';
+            $namaProduct = '<div class="d-flex px-2 py-1">
+                                <div>
+                                  <img src="' . Director::absoluteBaseURL() . '/public/assets/GambarProduct/' . $gambar->NamaGambar . '" class="avatar avatar-sm me-2" alt="Img">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                  <h6 class="mb-0 text-sm">' . $value->NamaProduct . '</h6>
+                                </div>
+                            </div>';
+
+            if ($value->Status == 1) {
+                $status = '<span class="badge badge-sm bg-gradient-success">Aktif</span>';
+            } else {
+                $status = '<span class="badge badge-sm bg-gradient-danger">Tidak Aktif</span>';
+            }
+
+            $temparr[] = $namaProduct;
+            $temparr[] = $status;
+            $temparr[] = $btnedit;
+            $arr[] = $temparr;
+        }
+        $result = array(
+            'data' => $arr,
+            'recordsTotal' => $total,
+            'recordsFiltered' => $total
+        );
+        return json_encode($result);
+    }
 
     public function index(HTTPRequest $request)
     {
@@ -48,14 +144,11 @@ class ProductController extends PageController
         //     $dataProduct = Product::get()->where('Deleted = 0');
         // }
 
-        $dataProduct = Product::get()->where('Deleted = 0');
-        
+        // $dataProduct = Product::get()->where('Deleted = 0');
+
         $data = [
             "siteParent" => "Product",
             "site" => "Product",
-            // "search" => $search,
-            "Data" => $dataProduct,
-            "CountData" => count($dataProduct),
             "Status" => $status,
             "msg" => $msg
         ];

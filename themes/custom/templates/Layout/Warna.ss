@@ -63,7 +63,7 @@
                                 <th class="text-secondary opacity-7" width="5%"></th>
                             </tr>
                         </thead>
-                        <tbody id="body-warna">
+                        <tbody>
 
                             <!-- <% if $CountData == 0 %>
 
