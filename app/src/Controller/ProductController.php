@@ -271,6 +271,7 @@ class ProductController extends PageController
             $hargaProduct = HargaProduct::create();
             $hargaProduct->Harga = str_replace(".", "", Convert::raw2sql($_REQUEST['Harga'][$i]));
             $hargaProduct->WarnaProductID = $warnaProduct->ID;
+            $hargaProduct->TglMulaiBerlaku = date('Y-m-d H:i:s');
             $hargaProduct->write();
         }
 
