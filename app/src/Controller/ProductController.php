@@ -7,6 +7,7 @@ use SilverStripe\ORM\DB;
 use SilverStripe\ORM\Queries\SQLSelect;
 use SilverStripe\Assets\Upload;
 use SilverStripe\Assets\File;
+use Mpdf\Mpdf;
 
 class ProductController extends PageController
 {
@@ -20,7 +21,8 @@ class ProductController extends PageController
         'doUpdate',
         'doDelete',
         'editStokHarga',
-        'doUpdateStokHarga'
+        'doUpdateStokHarga',
+        'print'
     ];
 
     public function getDataProductColumn($key)
@@ -259,13 +261,8 @@ class ProductController extends PageController
             $warnaProduct = WarnaProduct::create();
             $warnaProduct->WarnaID = Convert::raw2sql($_REQUEST['WarnaProduct'][$i]);
             $warnaProduct->ProductID = $product->ID;
+            $warnaProduct->Stok = Convert::raw2sql($_REQUEST['Jumlah'][$i]);
             $warnaProduct->write();
-
-            // Jumlah Product
-            $jumlahProduct = JumlahProduct::create();
-            $jumlahProduct->Jumlah = Convert::raw2sql($_REQUEST['Jumlah'][$i]);
-            $jumlahProduct->WarnaProductID = $warnaProduct->ID;
-            $jumlahProduct->write();
 
             // Harga Product
             $hargaProduct = HargaProduct::create();
@@ -474,5 +471,19 @@ class ProductController extends PageController
 
             return $this->redirect(Director::absoluteBaseURL() . "Product/detail/" . $jumlahterakhir->WarnaProduct->ProductID);
         }
+    }
+
+    public function print(HTTPRequest $request)
+    {
+        $dataProduct = Product::get()->where('Deleted = 0');
+        $data = [
+            "Title" => "DATA PRODUCT",
+            "Data" => $dataProduct
+        ];
+        $mpdf = new \Mpdf\Mpdf();
+        $mpdf->WriteHTML($this->customise($data)->renderWith((array(
+            'ProductPrint', 'Print',
+        ))));
+        $mpdf->Output();
     }
 }

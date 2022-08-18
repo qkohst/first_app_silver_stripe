@@ -67,7 +67,7 @@
                                          </div>
                                  </td>
                                  <td class="align-middle text-center text-sm">
-                                     <span class="badge badge-sm bg-gradient-info">{$JumlahProduct.last.Jumlah}</span>
+                                     <span class="badge badge-sm bg-gradient-info">{$Stok}</span>
                                  </td>
                                  <td class="align-middle text-center text-sm">
                                      <span class="badge badge-sm bg-gradient-info">Rp. <span

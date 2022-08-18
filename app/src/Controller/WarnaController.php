@@ -74,7 +74,7 @@ class WarnaController extends PageController
                                     href="' . Director::absoluteBaseURL() . 'Warna/edit/' . $value->ID . '">
                                     <i class="icofont-ui-edit mx-2"></i> Edit
                                 </a>
-                                <a href="#" class="dropdown-item border-radius-md btn-delete"
+                                <a href="javascript:;" class="dropdown-item border-radius-md btn-delete"
                                     data-id="' . $value->ID . '">
                                     <i class="icofont-ui-delete mx-2"></i> Hapus
                                 </a>

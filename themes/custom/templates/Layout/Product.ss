@@ -16,7 +16,9 @@
                       <h6 class="mb-0">Data $siteParent </h6>
                     </div>
                     <div class="col-6 text-end">
-                      <a class="btn bg-gradient-primary mb-0" href="{$BaseHref}Product/addData"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
+                      <a class="btn btn-sm bg-gradient-info" href="{$BaseHref}Product/print" target="_blank"><i class="icofont-print"></i>&nbsp;&nbsp;Print</a>
+                      <a class="btn btn-sm bg-gradient-primary" href="{$BaseHref}Product/download"><i class="icofont-download"></i>&nbsp;&nbsp;Download</a>
+                      <a class="btn btn-sm bg-gradient-success" href="{$BaseHref}Product/addData"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
                     </div>
                   </div>
                 </div>

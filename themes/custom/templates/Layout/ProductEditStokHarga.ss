@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-md-2 my-1">
                                     <input class="form-control" type="number" name="Jumlah"
-                                        value="{$Data.JumlahProduct.last.Jumlah}" required>
+                                        value="{$Data.Stok}" required>
                                 </div>
                                 <div class="col-md-7 my-1">
                                     <div class="input-group">
