@@ -12,13 +12,13 @@
               <div class="card mt-4">
                 <div class="card-header pb-0 p-3">
                   <div class="row">
-                    <div class="col-6 d-flex align-items-center">
+                    <div class="col-lg-4 d-flex align-items-center">
                       <h6 class="mb-0">Data $siteParent </h6>
                     </div>
-                    <div class="col-6 text-end">
-                      <a class="btn btn-sm bg-gradient-info" href="{$BaseHref}Product/print" target="_blank"><i class="icofont-print"></i>&nbsp;&nbsp;Print</a>
-                      <a class="btn btn-sm bg-gradient-primary" href="{$BaseHref}Product/download"><i class="icofont-download"></i>&nbsp;&nbsp;Download</a>
-                      <a class="btn btn-sm bg-gradient-success" href="{$BaseHref}Product/addData"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
+                    <div class="col-lg-8 text-end">
+                      <a class="btn btn-sm bg-gradient-info mb-1" href="{$BaseHref}Product/print" target="_blank"><i class="icofont-print"></i>&nbsp;&nbsp;Print</a>
+                      <a class="btn btn-sm bg-gradient-primary mb-1" href="{$BaseHref}Product/downloadExcel"><i class="icofont-download"></i>&nbsp;&nbsp;Download</a>
+                      <a class="btn btn-sm bg-gradient-success mb-1" href="{$BaseHref}Product/addData"><i class="icofont-plus"></i>&nbsp;&nbsp;Tambah</a>
                     </div>
                   </div>
                 </div>

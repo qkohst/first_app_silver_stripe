@@ -8,6 +8,8 @@ use SilverStripe\ORM\Queries\SQLSelect;
 use SilverStripe\Assets\Upload;
 use SilverStripe\Assets\File;
 use Mpdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ProductController extends PageController
 {
@@ -22,7 +24,8 @@ class ProductController extends PageController
         'doDelete',
         'editStokHarga',
         'doUpdateStokHarga',
-        'print'
+        'print',
+        'downloadExcel'
     ];
 
     public function getDataProductColumn($key)
@@ -477,7 +480,7 @@ class ProductController extends PageController
     {
         $dataProduct = Product::get()->where('Deleted = 0');
         $data = [
-            "Title" => "DATA PRODUCT",
+            "Title" => "DATA PRODUCT " . date('d-m-Y hms'),
             "Data" => $dataProduct
         ];
         $mpdf = new \Mpdf\Mpdf();
@@ -485,5 +488,64 @@ class ProductController extends PageController
             'ProductPrint', 'Print',
         ))));
         $mpdf->Output();
+    }
+
+    public function downloadExcel(HTTPRequest $request)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->getColumnDimension('A')->setWidth(5);
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getColumnDimension('C')->setWidth(10);
+        $sheet->getColumnDimension('D')->setWidth(10);
+        $sheet->getColumnDimension('E')->setWidth(10);
+        $sheet->getColumnDimension('F')->setWidth(10);
+
+        $sheet->setCellValue('A1', 'NO');
+        $sheet->setCellValue('B1', 'NAMA PRODUCT');
+        $sheet->setCellValue('C1', 'STATUS');
+        $sheet->setCellValue('D1', 'WARNA');
+        $sheet->setCellValue('E1', 'STOK');
+
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true);
+
+        $sheet->getStyle('A1:E1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('C:E')->getAlignment()->setHorizontal('center');
+
+        $dataProduct = Product::get()->where('Deleted = 0');
+        $row = 2;
+        foreach ($dataProduct as $product) {
+            $sheet->setCellValue('A' . $row, $row - 1);
+            $sheet->setCellValue('B' . $row, $product->NamaProduct);
+            if ($product->Status == 1) {
+                $sheet->setCellValue('C' . $row, 'Aktif');
+            } else {
+                $sheet->setCellValue('C' . $row, 'Non Aktif');
+            }
+            $sheet->setCellValue('D' . $row, $product->WarnaProduct()->count());
+            $sheet->setCellValue('E' . $row, $product->WarnaProduct()->Sum('Stok'));
+            $row++;
+        }
+
+        $sheet->mergeCells('A' . $row . ':C' . $row);
+        $sheet->getStyle('A' . $row)->getAlignment()->setHorizontal('left');
+        $sheet->setCellValue('A' . $row, 'JUMLAH TOTAL');
+
+        $sheet->getStyle('A' . $row . ':E' . $row)->getFont()->setBold(true);
+        $sheet->getStyle('A' . $row . ':E' . $row)->getAlignment()->setHorizontal('center');
+        $sheet->setCellValue('D' . $row, '=SUM(D2:D' . ($row - 1) . ')');
+        $sheet->setCellValue('E' . $row, '=SUM(E2:E' . ($row - 1) . ')');
+
+        $writer = new Xlsx($spreadsheet);
+        $filename = "Data Product " . date('d-m-Y hms');
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer->save('php://output');
+        return $this->redirectBack();
     }
 }

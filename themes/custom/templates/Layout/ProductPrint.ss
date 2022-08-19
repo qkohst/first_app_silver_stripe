@@ -2,7 +2,7 @@
       <!-- title row -->
       <div style="text-align: center;">
           <h2>
-              $Title
+              DATA PRODUCT
           </h2>
       </div>
 
@@ -12,10 +12,10 @@
               <table>
                   <thead>
                       <tr>
-                          <th style="text-align: center;">Nama Product</th>
-                          <th style="text-align: center;">Status</th>
-                          <th style="text-align: center;">Warna</th>
-                          <th style="text-align: center;">Stok</th>
+                          <th style="text-align: center;">NAMA PRODUCT</th>
+                          <th style="text-align: center;">STATUS</th>
+                          <th style="text-align: center;">WARNA</th>
+                          <th style="text-align: center;">STOK</th>
                       </tr>
                   </thead>
                   <tbody>
